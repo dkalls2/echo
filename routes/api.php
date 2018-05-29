@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('posts/{post}/comments', 'CommentController@index');
+    //anyone should be able to get, or view, the comments in a post.
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('posts/{post}/comment', 'CommentController@store');
+    //only those who are logged in can post a comment.
 });
